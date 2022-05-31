@@ -35,8 +35,6 @@ function DisplayContentItem(props) {
             <>
               <li>
                 <div>
-                  <p>Name: {props.name}</p>
-                  <p>Ingredients: {props.ingredients}</p>
                   <p>Instructions: {props.instructions}</p>
                 </div>
               </li>

@@ -4,6 +4,7 @@ import FormItem from "./FormItem";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { add } from "../action";
+import Search from "./Search";
 
 function Form() {
   const dispatch = useDispatch();
@@ -42,8 +43,10 @@ function Form() {
           Reset
         </button>
         <Buttons name="clear" showName="Clear All" actionType="clearAll" />
-
       </form>
+      <br/>
+      <Search />
+      
     </div>
   );
 }

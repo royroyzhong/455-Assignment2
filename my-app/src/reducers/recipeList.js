@@ -3,7 +3,7 @@ let initRecipe =
 let obj = JSON.parse(initRecipe).list;
 const recipeList = (lists = obj, action) => {
   switch (action.type) {
-    case "ADD_COUNTER":
+    case "ADD":
       if (
         action.payload.Name != null &&
         action.payload.Ingredients != null &&
@@ -17,7 +17,7 @@ const recipeList = (lists = obj, action) => {
         return [...lists, recipe];
       }
       return lists;
-    case "REMOVE_COUNTER":
+    case "REMOVE":
       return lists.filter((item) => {
         return (
           action.payload.recipeName !== item.name &&
@@ -25,9 +25,27 @@ const recipeList = (lists = obj, action) => {
           action.payload.recipeInstructions !== item.instructions
         );
       });
-    case "CLEARALL_COUNTER":
+    case "CLEARALL":
       lists = action.payload;
       return lists;
+    case "SEARCH":
+      let input = action.payload.toLowerCase();
+      let temp = lists.filter((item) => {
+        let name = item.name.toLowerCase();
+        let ingredients = item.ingredients.toLowerCase();
+        let instructions = item.instructions.toLowerCase();
+        return (
+          name.includes(input) ||
+          ingredients.includes(input) ||
+          instructions.includes(input)
+        );
+      });
+      if (input !== "") {
+        return temp;
+      } else {
+        return obj;
+      }
+
     default:
       return lists;
   }

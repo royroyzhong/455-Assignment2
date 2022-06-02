@@ -3,7 +3,7 @@ import { remove, clearAll } from "../action";
 
 function Buttons(item) {
   const dispatch = useDispatch();
-  
+
   return (
     <>
       <button name={item.name} onClick={() => checkType(dispatch, item)}>

@@ -162,9 +162,9 @@ button:active {
   position: relative;
   float: right;
   cursor: pointer;
-  font-size: 2vw;
+  font-size: 1.6vw;
   border-radius: 5vw;
-  margin: 1vw;
+  margin: -4vw;
   width: 5vw;
   height: 2vw;
   border: 1vw solid red;

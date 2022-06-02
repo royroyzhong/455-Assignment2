@@ -16,7 +16,6 @@ function DisplayContentItem(props) {
           <div onClick={handlePopup}>
             <p>Name: {props.name}</p>
             <p>Ingredients: {props.ingredients}</p>
-            <p>Instructions: {props.instructions}</p>
           </div>
           <Buttons
             name="delete"

@@ -11,12 +11,14 @@ function DisplayContentItem(props) {
   };
   return (
     <>
+    
       <li>
         <div className="recipeDetail">
           <div onClick={handlePopup}>
             <p>Name: {props.name}</p>
             <p>Ingredients: {props.ingredients}</p>
           </div>
+
           <Buttons
             name="delete"
             recipeName={props.name}

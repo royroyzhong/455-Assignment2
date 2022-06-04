@@ -4,7 +4,6 @@ import DisplayContentItem from "./DisplayContentItem";
 
 function DisplayContent() {
   let list = useSelector((state) => state.recipeList);
-  console.log(list);
   return (
     <>
       <ul>

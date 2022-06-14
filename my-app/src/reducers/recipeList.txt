@@ -4,6 +4,17 @@ let obj = JSON.parse(initRecipe).list;
 const recipeList = (lists = obj, action) => {
   switch (action.type) {
     case "ADD":
+      let dup = false;
+      for (let each of lists) {
+        console.log(each);
+        if (
+          each.name === action.payload.Name &&
+          each.ingredients === action.payload.Ingredients &&
+          each.instructions === action.payload.Instructions
+        ) {
+          dup = true;
+        }
+      }
       if (
         action.payload.Name != null &&
         action.payload.Ingredients != null &&
@@ -14,7 +25,9 @@ const recipeList = (lists = obj, action) => {
           ingredients: action.payload.Ingredients,
           instructions: action.payload.Instructions,
         };
-        return [...lists, recipe];
+        if (!dup) {
+          return [...lists, recipe];
+        }
       }
       return lists;
     case "REMOVE":

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { remove, clearAll } from "../action";
+import { add, remove, clearAll } from "../reducers/users/reducer";
 
 function Buttons(item) {
   const dispatch = useDispatch();

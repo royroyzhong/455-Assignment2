@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import DisplayContentItem from "./DisplayContentItem";
 
 function DisplayContent() {
-  let list = useSelector((state) => state.recipeList);
+  const list = useSelector((state) => state.recipe);
+
+  console.log(list);
   return (
     <>
       <ul>

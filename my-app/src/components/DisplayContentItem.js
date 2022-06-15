@@ -5,13 +5,12 @@ import Popup from "./Popup";
 
 function DisplayContentItem(props) {
   const [isVisible, setIsVisible] = useState(false);
-
+  // console.log(props);
   const handlePopup = () => {
     setIsVisible(!isVisible);
   };
   return (
     <>
-    
       <li>
         <div className="recipeDetail">
           <div onClick={handlePopup}>
@@ -24,6 +23,7 @@ function DisplayContentItem(props) {
             recipeName={props.name}
             recipeIngredients={props.ingredients}
             recipeInstructions={props.instructions}
+            index={props.index}
             showName="Delete"
             actionType="remove"
           />

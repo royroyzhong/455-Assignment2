@@ -3,8 +3,9 @@ import Buttons from "./Buttons";
 import FormItem from "./FormItem";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { add } from "../reducers/users/reducer";
-// import Search from "./Search";
+import { add } from "../reducers/recipe/reducer";
+import { addRecipeAsync } from "../reducers/recipe/thunks";
+import Search from "./Search";
 
 function Form() {
   const dispatch = useDispatch();
@@ -12,7 +13,8 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(add(inputs));
+    dispatch(addRecipeAsync(inputs));
+    setInputs({});
   };
   const handleChange = (event) => {
     const name = event.target.name;
@@ -42,10 +44,9 @@ function Form() {
         <button name="clearForm" onClick={handleReset}>
           Reset
         </button>
-
       </form>
       <br />
-      {/* <Search /> */}
+      <Search />
     </div>
   );
 }

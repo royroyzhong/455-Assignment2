@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { add, remove, clearAll } from "../reducers/users/reducer";
+import { add, remove, clearAll } from "../reducers/recipe/reducer";
+import { removeRecipeAsync } from "../reducers/recipe/thunks";
 
 function Buttons(item) {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ function Buttons(item) {
 function checkType(dispatch, item) {
   switch (item.actionType) {
     case "remove":
-      return dispatch(remove(item));
+      // console.log(item.index);
+      return dispatch(removeRecipeAsync(item));
     case "clearAll":
       return dispatch(clearAll([]));
     default:

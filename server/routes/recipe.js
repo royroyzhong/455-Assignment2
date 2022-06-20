@@ -13,14 +13,15 @@ router.get("/", function (req, res, next) {
 router.post("/", function (req, res, next) {
   // console.log(req.body);
   console.log("add");
+  console.log(req.body);
   console.log(req.body.name === undefined);
   if (!req.body) {
     return res.status(400).send({ message: "Cannot Be empty!" });
   }
   if (
-    req.body.name === undefined &&
-    req.body.instructions === undefined &&
-    req.body.ingredients === undefined
+    req.body.Name === undefined &&
+    req.body.Ingredients === undefined &&
+    req.body.Instructions === undefined
   ) {
     return res.status(204);
   }

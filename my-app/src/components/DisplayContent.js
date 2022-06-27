@@ -22,6 +22,7 @@ function DisplayContent() {
             name={item.name}
             ingredients={item.ingredients}
             instructions={item.instructions}
+            lastModified={item.lastModifieddate}
           />
         ))}
       </ul>

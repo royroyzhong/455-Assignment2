@@ -5,10 +5,13 @@ import Popup from "./Popup";
 
 function DisplayContentItem(props) {
   const [isVisible, setIsVisible] = useState(false);
+  const [text, setText] = useState("");
   // console.log(props);
   const handlePopup = () => {
     setIsVisible(!isVisible);
   };
+
+  // console.log(typeof props.lastModified);
   return (
     <>
       <li>
@@ -16,8 +19,8 @@ function DisplayContentItem(props) {
           <div onClick={handlePopup}>
             <p>Name: {props.name}</p>
             <p>Ingredients: {props.ingredients}</p>
+            <p>Last Modified Since: {props.lastModified}</p>
           </div>
-
           <Buttons
             name="delete"
             recipeName={props.name}
@@ -26,6 +29,15 @@ function DisplayContentItem(props) {
             index={props.index}
             showName="Delete"
             actionType="remove"
+          />
+
+          <input type="text" onChange={(e) => setText(e.target.value)} />
+          <Buttons
+            name="edit"
+            recipeName={props.name}
+            content={text}
+            showName="Edit Name"
+            actionType="edit"
           />
         </div>
       </li>

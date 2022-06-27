@@ -5,6 +5,7 @@ import {
   getRecipeAsync,
   removeRecipeAsync,
   searchRecipeAsync,
+  editNameAsync,
 } from "./thunks";
 // let initRecipe =
 //   '{"list": [{"name":"Green Tea","ingredients":"Hot Water, Green Tea Bag","instructions":"Put Tea Bag in a cup, and add hot water"},{"name":"Black Tea","ingredients":"Hot Water, Black Tea Bag","instructions":"Put Tea Bag in a cup, and add hot water"},{"name":"Hard-Boiled Eggs","ingredients":"Egg, Hot Water","instructions":"Bring a pot of water to boil. Once the water is boiling, use a large slotted spoon to gently lower the eggs into the water. Boil for 11 minutes"},{"name":"Scrambled Eggs","ingredients":"Eggs, water, and a little oil or butter","instructions":"Beat the eggs and whisk until the yolk and whites are thoroughly combined, preheat the pan and brush a small nonstick skillet with olive oil, or melt a little butter inside it. Warm the skillet over medium heat. "},{"name":"Sunny Side Up Eggs","ingredients":"Eggs","instructions":"Crack each egg into an individual bowl or ramekin, Cook them low and slow, Cover the pan"},{"name":"Poached Eggs","ingredients":"Eggs, white wine vinegar","instructions":"Crack an egg into a small bowl or ramekin, bring a medium pot of water to a gentle boil, add a tablespoon of white wine vinegar and stir, simmer"},{"name":"Tamagoyaki","ingredients":"Eggs, Sugar, Mirin, Soy sauce, Salt","instructions":"Beat the eggs, season the whisked eggs with sugar, mirin, soy sauce, and a pinch of salt before pouring a thin layer of the egg mixture into a pan to cook,Wait for the eggs to be cooked and start rolling, repeat until use all the egg "},{"name":"Onsen Tamago","ingredients":"Eggs","instructions":"Boil the egg with cold water, once the water boil, off the fire and wait for 5 mins"}]}';
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
   addUser: REQUEST_STATE.IDLE,
   removeUsers: REQUEST_STATE.IDLE,
   searchUsers: REQUEST_STATE.IDLE,
+  editName: REQUEST_STATE.IDLE,
   error: null,
 };
 
@@ -89,6 +91,7 @@ const recipeSlice = createSlice({
       })
       .addCase(addRecipeAsync.fulfilled, (state, action) => {
         state.addUser = REQUEST_STATE.FULFILLED;
+        console.log(action);
         state.list.push(action.payload);
       })
       .addCase(addRecipeAsync.rejected, (state, action) => {
@@ -101,11 +104,8 @@ const recipeSlice = createSlice({
       })
       .addCase(removeRecipeAsync.fulfilled, (state, action) => {
         state.removeUsers = REQUEST_STATE.FULFILLED;
-        let indexs = action.meta.arg.index;
         console.log(action.payload);
-        state.list = state.list.filter((item, index) => {
-          return index !== indexs;
-        });
+        state.list = action.payload;
       })
       .addCase(removeRecipeAsync.rejected, (state, action) => {
         state.removeUsers = REQUEST_STATE.REJECTED;
@@ -133,9 +133,20 @@ const recipeSlice = createSlice({
       .addCase(searchRecipeAsync.rejected, (state, action) => {
         state.searchUsers = REQUEST_STATE.REJECTED;
         state.error = action.error;
+      })
+      .addCase(editNameAsync.pending, (state) => {
+        state.editName = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(editNameAsync.fulfilled, (state, action) => {
+        state.editName = REQUEST_STATE.FULFILLED;
+        state.list = action.payload;
+      })
+      .addCase(editNameAsync.rejected, (state, action) => {
+        state.editName = REQUEST_STATE.REJECTED;
+        state.error = action.error;
       });
   },
 });
-export const { add, remove, clearAll } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

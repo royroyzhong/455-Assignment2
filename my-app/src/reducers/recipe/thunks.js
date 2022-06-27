@@ -18,12 +18,20 @@ export const addRecipeAsync = createAsyncThunk(
 export const searchRecipeAsync = createAsyncThunk(
   actionTypes.SEARCH_RECIPE,
   async (input) => {
-    return await UserService.searchRecipe({input});
+    return await UserService.searchRecipe({ input });
   }
 );
 export const removeRecipeAsync = createAsyncThunk(
   actionTypes.REMOVE_RECIPE,
   async (index) => {
     return await UserService.removeRecipe(index);
+  }
+);
+
+export const editNameAsync = createAsyncThunk(
+  actionTypes.Edit_Name,
+  async (index) => {
+    console.log("34");
+    return await UserService.editName(index);
   }
 );

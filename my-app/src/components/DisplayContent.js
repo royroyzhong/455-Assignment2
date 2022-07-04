@@ -8,6 +8,7 @@ function DisplayContent() {
 
   const dispatch = useDispatch();
   const [update, setUpdate] = React.useState("false");
+  //as4
   useEffect(() => {
     dispatch(getRecipeAsync());
   }, [list]);

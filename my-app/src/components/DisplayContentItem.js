@@ -10,8 +10,8 @@ function DisplayContentItem(props) {
   const handlePopup = () => {
     setIsVisible(!isVisible);
   };
-
   // console.log(typeof props.lastModified);
+
   return (
     <>
       <li>
@@ -20,6 +20,7 @@ function DisplayContentItem(props) {
             <p>Name: {props.name}</p>
             <p>Ingredients: {props.ingredients}</p>
             <p>Last Modified Since: {props.lastModified}</p>
+            <p>Like: {props.like !== undefined ? props.like : 0}</p>
           </div>
           <Buttons
             name="delete"
@@ -27,6 +28,7 @@ function DisplayContentItem(props) {
             recipeIngredients={props.ingredients}
             recipeInstructions={props.instructions}
             index={props.index}
+            fn={props.fn}
             showName="Delete"
             actionType="remove"
           />
@@ -36,8 +38,27 @@ function DisplayContentItem(props) {
             name="edit"
             recipeName={props.name}
             content={text}
+            fn={props.fn}
             showName="Edit Name"
             actionType="edit"
+          />
+          <Buttons
+            name="like"
+            recipeName={props.name}
+            fn={props.fn}
+            recipeIngredients={props.ingredients}
+            recipeInstructions={props.instructions}
+            showName="Likes"
+            actionType="like"
+          />
+          <Buttons
+            name="dislike"
+            recipeName={props.name}
+            fn={props.fn}
+            recipeIngredients={props.ingredients}
+            recipeInstructions={props.instructions}
+            showName="Dislike"
+            actionType="dislike"
           />
         </div>
       </li>

@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
   ingredients: String,
   instructions: String,
   lastModifieddate: { type: Date, default: Date.now },
+  like: { type: Number, default: 0 },
 });
 
 // schema.methods.speak = function speak() {
@@ -13,6 +14,6 @@ const schema = new mongoose.Schema({
 // };
 
 // create model
-const item = mongoose.model("item", schema);
+const recipe = mongoose.model("recipe", schema);
 
-module.exports = item;
+module.exports = recipe;

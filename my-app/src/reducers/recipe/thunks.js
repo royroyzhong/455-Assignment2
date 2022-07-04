@@ -35,3 +35,12 @@ export const editNameAsync = createAsyncThunk(
     return await UserService.editName(index);
   }
 );
+export const likeAsync = createAsyncThunk(actionTypes.Like, async (item) => {
+  return await UserService.like(item);
+});
+export const dislikeAsync = createAsyncThunk(
+  actionTypes.Dislike,
+  async (item) => {
+    return await UserService.dislike(item);
+  }
+);

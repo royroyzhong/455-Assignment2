@@ -6,6 +6,8 @@ import {
   removeRecipeAsync,
   searchRecipeAsync,
   editNameAsync,
+  likeAsync,
+  dislikeAsync,
 } from "./thunks";
 // let initRecipe =
 //   '{"list": [{"name":"Green Tea","ingredients":"Hot Water, Green Tea Bag","instructions":"Put Tea Bag in a cup, and add hot water"},{"name":"Black Tea","ingredients":"Hot Water, Black Tea Bag","instructions":"Put Tea Bag in a cup, and add hot water"},{"name":"Hard-Boiled Eggs","ingredients":"Egg, Hot Water","instructions":"Bring a pot of water to boil. Once the water is boiling, use a large slotted spoon to gently lower the eggs into the water. Boil for 11 minutes"},{"name":"Scrambled Eggs","ingredients":"Eggs, water, and a little oil or butter","instructions":"Beat the eggs and whisk until the yolk and whites are thoroughly combined, preheat the pan and brush a small nonstick skillet with olive oil, or melt a little butter inside it. Warm the skillet over medium heat. "},{"name":"Sunny Side Up Eggs","ingredients":"Eggs","instructions":"Crack each egg into an individual bowl or ramekin, Cook them low and slow, Cover the pan"},{"name":"Poached Eggs","ingredients":"Eggs, white wine vinegar","instructions":"Crack an egg into a small bowl or ramekin, bring a medium pot of water to a gentle boil, add a tablespoon of white wine vinegar and stir, simmer"},{"name":"Tamagoyaki","ingredients":"Eggs, Sugar, Mirin, Soy sauce, Salt","instructions":"Beat the eggs, season the whisked eggs with sugar, mirin, soy sauce, and a pinch of salt before pouring a thin layer of the egg mixture into a pan to cook,Wait for the eggs to be cooked and start rolling, repeat until use all the egg "},{"name":"Onsen Tamago","ingredients":"Eggs","instructions":"Boil the egg with cold water, once the water boil, off the fire and wait for 5 mins"}]}';
@@ -17,6 +19,8 @@ const INITIAL_STATE = {
   removeUsers: REQUEST_STATE.IDLE,
   searchUsers: REQUEST_STATE.IDLE,
   editName: REQUEST_STATE.IDLE,
+  like: REQUEST_STATE.IDLE,
+  dislike: REQUEST_STATE.IDLE,
   error: null,
 };
 
@@ -91,7 +95,6 @@ const recipeSlice = createSlice({
       })
       .addCase(addRecipeAsync.fulfilled, (state, action) => {
         state.addUser = REQUEST_STATE.FULFILLED;
-        console.log(action);
         state.list.push(action.payload);
       })
       .addCase(addRecipeAsync.rejected, (state, action) => {
@@ -104,8 +107,10 @@ const recipeSlice = createSlice({
       })
       .addCase(removeRecipeAsync.fulfilled, (state, action) => {
         state.removeUsers = REQUEST_STATE.FULFILLED;
-        console.log(action.payload);
-        state.list = action.payload;
+        let index = state.list.findIndex(
+          (obj) => obj.name === action.payload.name
+        );
+        state.list.splice(index, 1);
       })
       .addCase(removeRecipeAsync.rejected, (state, action) => {
         state.removeUsers = REQUEST_STATE.REJECTED;
@@ -140,10 +145,45 @@ const recipeSlice = createSlice({
       })
       .addCase(editNameAsync.fulfilled, (state, action) => {
         state.editName = REQUEST_STATE.FULFILLED;
-        state.list = action.payload;
+
+        let index = state.list.findIndex(
+          (obj) => obj.name === action.meta.arg.recipeName
+        );
+        state.list[index] = action.payload;
       })
       .addCase(editNameAsync.rejected, (state, action) => {
         state.editName = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(likeAsync.pending, (state) => {
+        state.like = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(likeAsync.fulfilled, (state, action) => {
+        state.like = REQUEST_STATE.FULFILLED;
+        let index = state.list.findIndex(
+          (obj) => obj.name === action.payload.name
+        );
+        state.list[index] = action.payload;
+      })
+      .addCase(likeAsync.rejected, (state, action) => {
+        state.like = REQUEST_STATE.REJECTED;
+        state.error = action.error;
+      })
+      .addCase(dislikeAsync.pending, (state) => {
+        state.dislike = REQUEST_STATE.PENDING;
+        state.error = null;
+      })
+      .addCase(dislikeAsync.fulfilled, (state, action) => {
+        state.dislike = REQUEST_STATE.FULFILLED;
+
+        let index = state.list.findIndex(
+          (obj) => obj.name === action.payload.name
+        );
+        state.list[index] = action.payload;
+      })
+      .addCase(dislikeAsync.rejected, (state, action) => {
+        state.dislike = REQUEST_STATE.REJECTED;
         state.error = action.error;
       });
   },

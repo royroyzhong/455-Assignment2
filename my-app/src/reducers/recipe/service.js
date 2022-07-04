@@ -8,6 +8,7 @@ const addRecipe = async (input) => {
   });
 
   const data = await response.json();
+
   if (!response.ok) {
     const errorMsg = data?.message;
     throw new Error(errorMsg);
@@ -30,16 +31,20 @@ const removeRecipe = async (index) => {
     },
     body: JSON.stringify(index),
   });
+  console.log(response);
+  try {
+    const data = await response.json();
 
-  const data = await response.json();
+    console.log(data);
 
-  console.log(data);
-
-  if (!response.ok) {
-    const errorMsg = data?.message;
-    throw new Error(errorMsg);
+    if (!response.ok) {
+      const errorMsg = data?.message;
+      throw new Error(errorMsg);
+    }
+    return data;
+  } catch (err) {
+    console.log(err);
   }
-  return data;
 };
 
 const searchRecipe = async (input) => {
@@ -76,10 +81,44 @@ const editName = async (input) => {
   }
   return data;
 };
+const like = async (input) => {
+  const response = await fetch("http://localhost:8888/recipe/like", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg);
+  }
+  return data;
+};
+const dislike = async (input) => {
+  const response = await fetch("http://localhost:8888/recipe/dislike", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg);
+  }
+  return data;
+};
 export default {
   addRecipe,
   getRecipe,
   removeRecipe,
   searchRecipe,
   editName,
+  dislike,
+  like,
 };

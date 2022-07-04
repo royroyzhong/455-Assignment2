@@ -7,11 +7,10 @@ function DisplayContent() {
   const list = useSelector((state) => state.recipe.list);
 
   const dispatch = useDispatch();
-
+  const [update, setUpdate] = React.useState("false");
   useEffect(() => {
     dispatch(getRecipeAsync());
-  }, []);
-  // console.log(list);
+  }, [list]);
   return (
     <>
       <ul>
@@ -23,6 +22,8 @@ function DisplayContent() {
             ingredients={item.ingredients}
             instructions={item.instructions}
             lastModified={item.lastModifieddate}
+            like={item.like}
+            fn={setUpdate}
           />
         ))}
       </ul>

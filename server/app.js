@@ -34,11 +34,11 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/recipe", usersRouter);
 app.use("/recipe/edit", usersRouter);
 app.use("/search", usersRouterSearch);
+app.use("/", express.static(__dirname + "/public/build"));
 
 module.exports = app;

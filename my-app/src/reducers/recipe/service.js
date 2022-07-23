@@ -1,5 +1,5 @@
 const addRecipe = async (input) => {
-  const response = await fetch("http://localhost:8888/recipe", {
+  const response = await fetch("https://example-app-455.herokuapp.com/recipe", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,14 +17,14 @@ const addRecipe = async (input) => {
 };
 
 const getRecipe = async () => {
-  const response = await fetch("http://localhost:8888/recipe", {
+  const response = await fetch("https://example-app-455.herokuapp.com/recipe", {
     method: "GET",
   });
   return response.json();
 };
 
 const removeRecipe = async (index) => {
-  const response = await fetch("http://localhost:8888/recipe", {
+  const response = await fetch("https://example-app-455.herokuapp.com/recipe", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const removeRecipe = async (index) => {
 
 const searchRecipe = async (input) => {
   // console.log(input);
-  const response = await fetch("http://localhost:8888/search", {
+  const response = await fetch("https://example-app-455.herokuapp.com/search", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const searchRecipe = async (input) => {
 };
 const editName = async (input) => {
   console.log(input);
-  const response = await fetch("http://localhost:8888/recipe", {
+  const response = await fetch("https://example-app-455.herokuapp.com/recipe", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -82,13 +82,16 @@ const editName = async (input) => {
   return data;
 };
 const like = async (input) => {
-  const response = await fetch("http://localhost:8888/recipe/like", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(input),
-  });
+  const response = await fetch(
+    "https://example-app-455.herokuapp.com/recipe/like",
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    }
+  );
 
   const data = await response.json();
   if (!response.ok) {
@@ -98,13 +101,16 @@ const like = async (input) => {
   return data;
 };
 const dislike = async (input) => {
-  const response = await fetch("http://localhost:8888/recipe/dislike", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(input),
-  });
+  const response = await fetch(
+    "https://example-app-455.herokuapp.com/recipe/dislike",
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    }
+  );
 
   const data = await response.json();
   if (!response.ok) {

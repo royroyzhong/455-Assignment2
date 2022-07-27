@@ -43,6 +43,14 @@ function DisplayContentItem(props) {
             actionType="edit"
           />
           <Buttons
+            name="edit"
+            recipeName={props.name}
+            content={text}
+            fn={props.fn}
+            showName="Edit Name123123"
+            actionType="edit"
+          />
+          <Buttons
             name="like"
             recipeName={props.name}
             fn={props.fn}
